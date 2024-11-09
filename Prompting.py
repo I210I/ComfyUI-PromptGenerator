@@ -110,7 +110,3 @@ class Prompter:
         return Prompter.BASE_PROMT + " " + prompt_string + " ".join(selected_words)
 
 
-# Example usage
-if __name__ == "__main__":
-    result = Prompter.generate_prompt(couple=True, sex_gender=False, mature=True, wings=True, tail=True, background=True, undress=True)
-    print(result)
