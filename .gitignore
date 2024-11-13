@@ -1,0 +1,15 @@
+# Ignorar archivos de caché de Python
+__pycache__/
+*.py[cod]
+
+# Ignorar archivos de caché de IPython/Jupyter
+.ipynb_checkpoints
+
+# Ignorar archivos de entorno virtual
+venv/
+env/
+
+# Ignorar configuraciones y archivos temporales de IDEs
+*.vscode/
+.idea/
+*.swp

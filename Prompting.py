@@ -8,6 +8,7 @@ class Prompter:
     def INPUT_TYPES(cls):
         inputs = {
             "required": {
+                "runner": ("INT", {"default": 1, "min": 1, "max": 999999, "step": 1, "tooltip": "to run always input a random number"}),
                 "couple" : ("BOOLEAN", {"default" : False, "label_on": "Yes", "label_off": "No", "forceInput": False,
                                         "tooltip": "The couple can be XX or XY randomly, although you can specify it using your LoRAs or by concatenating prompts."}),
                 "sex_gender" : ("BOOLEAN", {"default" : False, "label_on": "Female", "label_off": "Male", "forceInput": False,
@@ -24,7 +25,8 @@ class Prompter:
         return inputs
     
     RETURN_TYPES = ("STRING",)
-    RETURN_NAMES = ("positive_prompt",)
+    RETURN_NAMES = ("positive_prompt",
+    )
     OUTPUT_TOOLTIPS = ("Prompt to connect into string input in CLIP TEXT ENCODE",)
     FUNCTION = "generate_prompt"
     CATEGORY = "Prompt/RandomPrompt"
@@ -52,7 +54,7 @@ class Prompter:
         return words
 
     @staticmethod
-    def generate_prompt(couple, sex_gender, mature, wings, tail, background, undress):
+    def generate_prompt(runner, couple, sex_gender, mature, wings, tail, background, undress):
         """
         Reads the specified files based on the boolean values received as parameters.
         If the file does not exist, it creates it. If the file is empty, it continues.
@@ -106,7 +108,8 @@ class Prompter:
                 if words:
                     selected_word = random.choice(words) + ", "
                     selected_words.append(selected_word)
-    
-        return Prompter.BASE_PROMT + " " + prompt_string + " ".join(selected_words)
+        full_prompt =  Prompter.BASE_PROMT + " " + prompt_string + " ".join(selected_words)
+        print(full_prompt)
+        return full_prompt
 
 
