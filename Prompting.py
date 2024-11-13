@@ -25,8 +25,7 @@ class Prompter:
         return inputs
     
     RETURN_TYPES = ("STRING",)
-    RETURN_NAMES = ("positive_prompt",
-    )
+    RETURN_NAMES = ("positive_prompt",)
     OUTPUT_TOOLTIPS = ("Prompt to connect into string input in CLIP TEXT ENCODE",)
     FUNCTION = "generate_prompt"
     CATEGORY = "Prompt/RandomPrompt"
@@ -81,7 +80,7 @@ class Prompter:
             "face_expresion": True,
             "position": not couple,
             "sexual_acts": sexual_acts,
-            "sexual_acts_solo": not couple and mature,
+            "sexual_acts_solo": (not couple) and mature,
             "sexual_position": sexual_position,
             "sexual_clothes": mature and undress,
             "tail": tail,
@@ -92,10 +91,10 @@ class Prompter:
 
         prompt_string = ""
         if mature:
-            prompt_string += random.choice(["rating_explicit, ","rating_cuestionable, "])
+            prompt_string += random.choice(["hourglass body, rating_explicit, ","hourglass body, rating_cuestionable, "])
 
         else:
-            prompt_string += "rating_safe, "
+            prompt_string += "rating_safe, clothes, "
 
         if not background:
             prompt_string += "blank background, mate background, empty background, "
@@ -105,7 +104,7 @@ class Prompter:
             if sex_gender:
                 prompt_string += "solo, 1man, "
             else:
-                prompt_string += "solo, 1girl, hourglass body, "
+                prompt_string += "solo, 1girl, "
 
         distance = ["medium shot", "close up shot, eye level", "full body shot, full body", "cowboy shot"]
         selected_words = []
