@@ -92,10 +92,13 @@ class Prompter:
 
         prompt_string = ""
         if mature:
-            prompt_string += "rating_explicit, "
+            prompt_string += random.choice(["rating_explicit, ","rating_cuestionable, "])
+
         else:
-            prompt_string += random.choice(["rating_safe, ","rating_cuestionable, "])
-      
+            prompt_string += "rating_safe, "
+
+        if not background:
+            prompt_string += "blank background, mate background, empty background, "
         if couple:
             prompt_string += "1man, black hair, BREAK, 1girl, "
         else:
