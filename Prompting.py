@@ -3,7 +3,8 @@ import random
 import datetime
 
 class Prompter:
-    BASE_PROMT = "score_9,score_8, score_8_up, score_7, score_7_up,"
+    BASE_PROMT = "score_9,score_8, score_8_up, score_7, score_7_up, BREAK, "
+    
     @classmethod
     def INPUT_TYPES(cls):
         inputs = {
@@ -11,15 +12,14 @@ class Prompter:
                 "runner": ("INT", {"default": 1, "min": 1, "max": 999999, "step": 1, "tooltip": "to run always input a random number"}),
                 "couple" : ("BOOLEAN", {"default" : False, "label_on": "Yes", "label_off": "No", "forceInput": False,
                                         "tooltip": "The couple can be XX or XY randomly, although you can specify it using your LoRAs or by concatenating prompts."}),
-                "sex_gender" : ("BOOLEAN", {"default" : False, "label_on": "Female", "label_off": "Male", "forceInput": False,
+                "sex_gender" : ("BOOLEAN", {"default" : False, "label_on": "Male", "label_off": "Female", "forceInput": False,
                                         "tooltip": "Gender of main character."}),
                 "mature" : ("BOOLEAN", {"default" : False, "label_on": "NSFW", "label_off": "SFW", "forceInput": False,
                                         "tooltip": "Mature means sexual acts. And It could BREAK field Dress/Undress"}),
                 "wings" : ("BOOLEAN", {"default" : False, "label_on": "Yes", "label_off": "No", "forceInput": False}),
                 "tail" : ("BOOLEAN", {"default" : False, "label_on": "Yes", "label_off": "No", "forceInput": False}),
                 "background" : ("BOOLEAN", {"default" : False, "label_on": "Random background", "label_off": "Blank bg", "forceInput": False}),
-                "undress" : ("BOOLEAN", {"default" : False, "label_on": "Random clothes", "label_off": "nude or semi nude", "forceInput": False})
-                
+                "undress" : ("BOOLEAN", {"default" : False, "label_on": "Random clothes", "label_off": "nude or semi nude", "forceInput": False})                
             }
         } 
         return inputs
@@ -85,7 +85,8 @@ class Prompter:
             "sexual_position": sexual_position,
             "sexual_clothes": mature and not undress,
             "tail": tail,
-            "wings": wings
+            "wings": wings,
+            "view": True
         }
 
 
@@ -97,9 +98,9 @@ class Prompter:
             if sex_gender:
                 prompt_string += "solo, 1man, "
             else:
-                prompt_string += "solo, 1girl, "
+                prompt_string += "solo, 1girl, hourglass body, "
 
-        
+        distance = ["medium shot", "close up shot, eye level", "full body shot, full body", "cowboy shot"]
         selected_words = []
     
         for file_name, should_read in file_flags.items():
@@ -108,7 +109,7 @@ class Prompter:
                 if words:
                     selected_word = random.choice(words) + ", "
                     selected_words.append(selected_word)
-        full_prompt =  Prompter.BASE_PROMT + " " + prompt_string + " ".join(selected_words)
+        full_prompt =  Prompter.BASE_PROMT + " " + prompt_string + " ".join(selected_words) + random.choice(distance)
         print(full_prompt)
         return full_prompt
 
