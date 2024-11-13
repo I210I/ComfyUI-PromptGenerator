@@ -83,7 +83,7 @@ class Prompter:
             "sexual_acts": sexual_acts,
             "sexual_acts_solo": not couple and mature,
             "sexual_position": sexual_position,
-            "sexual_clothes": mature and not undress,
+            "sexual_clothes": mature and undress,
             "tail": tail,
             "wings": wings,
             "view": True
@@ -91,7 +91,11 @@ class Prompter:
 
 
         prompt_string = ""
-
+        if mature:
+            prompt_string += "rating_explicit, "
+        else:
+            prompt_string += random.choice(["rating_safe, ","rating_cuestionable, "])
+      
         if couple:
             prompt_string += "1man, black hair, BREAK, 1girl, "
         else:
