@@ -117,6 +117,6 @@ class Prompter:
                     selected_words.append(selected_word)
         full_prompt =  Prompter.BASE_PROMT + " " + prompt_string + " ".join(selected_words) + random.choice(distance)
         print(full_prompt)
-        return full_prompt
+        return (full_prompt,)
 
 
